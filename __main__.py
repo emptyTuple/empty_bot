@@ -1,3 +1,4 @@
+"""entry point package for the bot"""
 import asyncio
 import logging
 
@@ -5,33 +6,35 @@ from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from config_data.config import Config, load_config
+from keyboards.bot_main_menu import set_main_menu
 
-# Импортируем роутеры
+# routers import
 # ...
-# Импортируем миддлвари
+# middlewares import
 # ...
-# Импортируем вспомогательные функции для создания нужных объектов
+# other imports
 # ...
 
-logger = logging.getLogger(__name__) # инициализация логгера
+logger = logging.getLogger(__name__) # logger initialization
 
-# Функция конфигурирования и запуска бота
+
 async def main() -> None:
-    # Конфигурируем логирование
+    """main function: configuration and starting the bot"""
+    # logging configuration
     logging.basicConfig(
         level=logging.DEBUG,
         style='{',
         format='[{asctime}] {name} {levelname:<8s} {filename} {lineno} {message}',
     )
-    # Выводим в консоль информацию о начале запуска бота
+    # starting bot log
     logger.info('Starting bot')
 
-    # Загружаем конфиг в переменную config
+    # config loading
     config: Config = load_config()
-    # Инициализируем объект хранилища
+    # storage objects initialization
     #storage = ...
 
-    # Инициализируем бот и диспетчер
+    # bot and dispatcher initialization
     bot = Bot(
         token=config.tg_bot.token,
         default=DefaultBotProperties(parse_mode=ParseMode.HTML)
@@ -44,15 +47,15 @@ async def main() -> None:
     # Помещаем нужные объекты в workflow_data диспетчера
     #dp.workflow_data.update(...)
 
-    # Настраиваем главное меню бота
-    #await set_main_menu(bot)
+    # main menu activation
+    await set_main_menu(bot)
 
-    # Регистрируем роутеры
-    logger.debug('Подключаем роутеры')
+    # routers registration
+    logger.debug('registering routers')
     # ...
 
-    # Регистрируем миддлвари
-    logger.debug('Подключаем миддлвари')
+    # middlewares registration
+    logger.debug('registering middlewares')
     # ...
 
     # Пропускаем (если нужно) накопившиеся апдейты и запускаем polling
