@@ -1,3 +1,4 @@
+"""config data for the bot"""
 from dataclasses import dataclass
 from environs import Env
 
