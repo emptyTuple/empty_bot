@@ -1,4 +1,4 @@
-"""entry point package for the bot"""
+"""entry point for the bot"""
 import asyncio
 import logging
 
